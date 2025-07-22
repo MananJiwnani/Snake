@@ -6,6 +6,18 @@ using namespace std;
 #define F first
 #define S second
 
+void printInitialBoard(int boardSize){
+    cout<<'S'<<" ";
+    for(int i=0;i<boardSize;i++){
+        for(int j=0;j<boardSize;j++){
+            if(i==0 && j==0) continue;
+            cout<<'.'<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+}
+
 class Snake{
     public:
     pair<int,int> pos = {0,0};
@@ -64,6 +76,8 @@ int main(){
     cout<<"Board Size (N*N): ";
     cin>>boardSize;
     cout<<endl;
+
+    printInitialBoard(boardSize);
 
     char move = 'd';
     // w up
