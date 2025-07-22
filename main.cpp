@@ -16,8 +16,9 @@ class Snake{
         next = nullptr;
     }
 
-    Snake(Snake* tail){
-        pos = tail->getPos();
+    Snake(pair<int,int> prev){
+        pos.F = prev.F;
+        pos.S = prev.S;
         next = nullptr;
     }
     
@@ -96,6 +97,7 @@ int main(){
             break;
         }
 
+        pair<int,int> prev = tail->getPos();
         head->move(nextH);
 
         if(!head->check(boardSize)){
@@ -103,9 +105,9 @@ int main(){
             return 0;
         }
 
-        if(nextH==food){
+        if(head->getPos()==food){
             food = gen(boardSize);
-            Snake* temp = new Snake(tail);
+            Snake* temp = new Snake(prev);
             tail->setNext(temp);
             tail = temp;
         }
@@ -115,10 +117,10 @@ int main(){
         vector<vector<char>> board(boardSize, vector<char>(boardSize, '.'));
         if(head->next) head->next->makeBoard(board);
 
-        // if(board[nextH.F][nextH.S]=='0'){
-        //     cout<<"Game Over!"<<endl;
-        //     return 0;
-        // }
+        if(board[nextH.F][nextH.S]=='0'){
+            cout<<"Game Over!"<<endl;
+            return 0;
+        }
 
         board[nextH.F][nextH.S] = 'S';
         board[food.F][food.S] = '1';
